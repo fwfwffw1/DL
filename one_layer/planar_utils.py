@@ -4,6 +4,11 @@ import sklearn
 import sklearn.datasets
 import sklearn.linear_model
 
+# 该方法用于绘制等高线，将同一个预测值的部分用登高线相连
+# 第一步通过np.meshgrid绘制网格，通过将范围内的点切割为许多份，然后把网格上的所有点都表示出来
+# 比较方便，仅需提供横纵坐标的范围和划分大小就能自动表示网格
+# 然后通过对所有点进行预测，将某一个点的预测值作为等高线的高 
+
 def plot_decision_boundary(model, X, y):
     # Set min and max values and give it some padding
     x_min, x_max = X[0, :].min() - 1, X[0, :].max() + 1
@@ -18,7 +23,7 @@ def plot_decision_boundary(model, X, y):
     plt.contourf(xx, yy, Z, cmap=plt.cm.Spectral)
     plt.ylabel('x2')
     plt.xlabel('x1')
-    plt.scatter(X[0, :], X[1, :], c=np.squeeze(y), cmap=plt.cm.Spectral)
+    plt.scatter(X[0, :], X[1, :], c=np.squeeze(y),edgecolor='black', linewidths=10,alpha=1,cmap=plt.cm.Spectral)
 
 
 def sigmoid(x):
